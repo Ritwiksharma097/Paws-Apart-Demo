@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Paws Apart — demo</title>
+<meta name="description" content="Paws Apart: a cosy logic puzzle. Try two colour themes of the playable demo.">
+<meta property="og:title" content="Paws Apart — playable demo">
+<meta property="og:description" content="One red panda per row, column and colour. Two themes to compare.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='13.5' r='8' fill='%23E0662A'/%3E%3Ccircle cx='5.2' cy='6.8' r='3.4' fill='%23E0662A'/%3E%3Ccircle cx='18.8' cy='6.8' r='3.4' fill='%23E0662A'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F8EFEA;--ink:#6E4632;--ink2:#A57A6C;--ink3:#C4A093;--accent:#F6A22A;--accent2:#EE8A1C;--card:#fff;
+  --font:'Quicksand',ui-rounded,"SF Pro Rounded",system-ui,sans-serif;--display:'Fredoka','Quicksand',ui-rounded,system-ui,sans-serif}
+*{box-sizing:border-box}
+html{background:var(--bg)}
+body{margin:0;font-family:var(--font);color:var(--ink);background:var(--bg);
+  background-image:linear-gradient(#EFE3DA 1.5px,transparent 1.5px),linear-gradient(90deg,#EFE3DA 1.5px,transparent 1.5px);background-size:56px 56px;background-position:28px 28px}
+a{color:inherit}
+.wrap{max-width:1080px;margin:0 auto;padding:40px 20px 60px}
+header{text-align:center;margin-bottom:34px}
+.logo{font-family:var(--display);font-weight:700;font-size:clamp(44px,8vw,72px);line-height:.92;letter-spacing:.06em;color:#8B5A3C}
+.logo em{font-style:normal;color:var(--accent)}
+.tag{margin:16px auto 0;max-width:560px;font-weight:600;font-size:17px;color:var(--ink2);line-height:1.5}
+.pillrow{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:18px}
+.pill{background:#fff;border-radius:999px;padding:8px 14px;font-size:13px;font-weight:700;color:var(--ink2);box-shadow:0 2px 10px rgba(110,70,50,.08)}
+
+.themes{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:28px;align-items:start}
+.card{background:var(--card);border-radius:28px;padding:22px 22px 24px;box-shadow:0 6px 28px rgba(110,70,50,.10)}
+.card h2{margin:0;font-family:var(--display);font-weight:600;font-size:26px}
+.card p{margin:6px 0 16px;color:var(--ink2);font-weight:600;font-size:14px;line-height:1.5}
+.swatches{display:flex;gap:6px;margin:0 0 16px}
+.swatches i{width:22px;height:22px;border-radius:7px;display:block;box-shadow:inset 0 0 0 1px rgba(0,0,0,.06)}
+.phone{position:relative;width:min(100%,332px);margin:0 auto;aspect-ratio:332/700;background:#2B2626;border-radius:44px;padding:12px;box-shadow:0 18px 40px rgba(60,40,30,.25),inset 0 0 0 2px #4a4141}
+.phone::before{content:"";position:absolute;left:50%;top:12px;transform:translateX(-50%);width:110px;height:26px;background:#2B2626;border-radius:0 0 18px 18px;z-index:2}
+.phone iframe{width:100%;height:100%;border:0;border-radius:34px;background:#F8EFEA;display:block}
+.phone.b iframe{background:#F2F5EE}
+.actions{display:flex;gap:10px;margin-top:18px}
+.btn{flex:1;display:flex;align-items:center;justify-content:center;height:50px;border-radius:999px;border:0;cursor:pointer;text-decoration:none;
+  font-family:var(--display);font-weight:600;font-size:18px;color:#fff;background:linear-gradient(180deg,var(--accent),var(--accent2));box-shadow:0 6px 16px rgba(238,143,30,.35)}
+.btn.ghost{background:#fff;color:var(--ink2);box-shadow:0 2px 10px rgba(110,70,50,.10)}
+.btn.coral{background:linear-gradient(180deg,#F27D5C,#E5623F);box-shadow:0 6px 16px rgba(229,98,63,.32)}
+.btn:active{transform:translateY(2px)}
+
+.notes{margin-top:40px;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}
+.note{background:rgba(255,255,255,.75);border-radius:20px;padding:18px 20px}
+.note h3{margin:0 0 8px;font-family:var(--display);font-weight:600;font-size:18px}
+.note ul{margin:0;padding-left:18px;color:var(--ink2);font-weight:600;font-size:14px;line-height:1.6}
+footer{margin-top:40px;text-align:center;color:var(--ink3);font-weight:600;font-size:13px}
+.mobileHint{display:none;background:#FFF1D6;color:#8B5A3C;border-radius:16px;padding:12px 16px;font-weight:700;font-size:14px;margin:0 0 20px;text-align:center}
+@media (max-width:700px){.phone{display:none}.mobileHint{display:block}.card{padding:18px}.actions{margin-top:0}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="logo">PAWS<br><em>A</em>PART</div>
+    <p class="tag">A cosy logic puzzle: one red panda in every row, column and colour — and no two touching. Same game, two colour themes. Pick the one that feels nicer.</p>
+    <div class="pillrow"><span class="pill">Playable demo</span><span class="pill">12 levels · 5×5 → 8×8</span><span class="pill">Interactive tutorial</span><span class="pill">Works offline once loaded</span></div>
+  </header>
+
+  <div class="mobileHint">You're on a phone — tap a button below to play full screen.</div>
+
+  <section class="themes">
+    <div class="card">
+      <h2>Theme A · Warm cream</h2>
+      <p>Soft peach background, brown ink, orange buttons. The closest to the reference feel.</p>
+      <div class="swatches"><i style="background:#F8EFEA"></i><i style="background:#6E4632"></i><i style="background:#F6A22A"></i><i style="background:#3BAAC1"></i><i style="background:#FBDC86"></i><i style="background:#F5A6E4"></i><i style="background:#8B7BE6"></i><i style="background:#D96F95"></i></div>
+      <div class="phone a"><iframe src="theme-a.html" title="Paws Apart — theme A" loading="lazy" allow="vibrate"></iframe></div>
+      <div class="actions"><a class="btn" href="theme-a.html">Play theme A</a><a class="btn ghost" href="theme-a.html" target="_blank" rel="noopener">New tab</a></div>
+    </div>
+    <div class="card">
+      <h2>Theme B · Sage &amp; coral</h2>
+      <p>Cooler sage-cream background, deep green ink, coral buttons, slightly softer board colours.</p>
+      <div class="swatches"><i style="background:#F2F5EE"></i><i style="background:#3F5A4B"></i><i style="background:#F27D5C"></i><i style="background:#5BB9D6"></i><i style="background:#F7D774"></i><i style="background:#F4A7C3"></i><i style="background:#A79BE8"></i><i style="background:#E07A8C"></i></div>
+      <div class="phone b"><iframe src="theme-b.html" title="Paws Apart — theme B" loading="lazy" allow="vibrate"></iframe></div>
+      <div class="actions"><a class="btn coral" href="theme-b.html">Play theme B</a><a class="btn ghost" href="theme-b.html" target="_blank" rel="noopener">New tab</a></div>
+    </div>
+  </section>
+
+  <section class="notes">
+    <div class="note"><h3>How to play</h3><ul><li>Tap a cell to mark an X, double‑tap to place a panda.</li><li>Swipe across cells to X several at once.</li><li>Wrong spot = a sad panda and one bamboo lost (3 per level).</li></ul></div>
+    <div class="note"><h3>What to look at</h3><ul><li>Splash → loading → tutorial on first launch.</li><li>Home: profile avatars &amp; frames, streak, settings.</li><li>Win screen, daily streak, out‑of‑bamboo screen.</li></ul></div>
+    <div class="note"><h3>Notes</h3><ul><li>Progress is saved in your browser, per theme.</li><li>Settings → “Reset progress” replays the tutorial.</li><li>Best experienced on a phone.</li></ul></div>
+  </section>
+
+  <footer>Paws Apart · demo build · not for distribution</footer>
+</div>
+</body>
+</html>
